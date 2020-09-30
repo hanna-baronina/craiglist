@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 /** Tests for Craiglist main page. */
 public class MainPageTest {
     private static final String MAIN_PAGE_URL = "https://sfbay.craigslist.org/";
+
     private WebDriver driver;
 
     @Before
@@ -76,7 +77,6 @@ public class MainPageTest {
 
     @Test
     public void verifyLanguageDropdown(){
-        //driver.findElement(By.id("chlang")).click();
         Select dropdown = new Select(driver.findElement(By.id("chlang")));
         dropdown.selectByIndex(1);
     }

@@ -7,7 +7,7 @@ import org.openqa.selenium.safari.SafariDriver;
 
 /** Provides driver for the tests. */
 public class DriverProvider {
-    private static final String BROWSER = "firefox";
+    private static final String BROWSER = "chrome";
 
     public static WebDriver getDriver(){
         if(BROWSER.equalsIgnoreCase("chrome")){

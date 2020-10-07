@@ -11,11 +11,9 @@ public class CreatePostPage {
     private By cityField = By.id("geographic_area");
     private By postalCodeField = By.id("postal_code");
     private By postingBodyField = By.id("PostingBody");
-    private By emailField = By.xpath("//input[@name='FromEMail']");
     private By continueButton = By.xpath("//button[@name='go']");
     private By confirmButton = By.className("continue");
     private By doneWithImagesButton = By.className("done");
-    private By publishButton = By.className("button");
 
     public CreatePostPage(WebDriver driver) {
         this.driver = driver;
@@ -37,10 +35,6 @@ public class CreatePostPage {
         driver.findElement(postingBodyField).sendKeys(body);
     }
 
-    public void enterEmail(String email) {
-        driver.findElement(emailField).sendKeys(email);
-    }
-
     public void clickContinueButton() {
         driver.findElement(continueButton).click();
     }
@@ -51,9 +45,5 @@ public class CreatePostPage {
 
     public void clickDoneWithImagesButton() {
         driver.findElement(doneWithImagesButton).click();
-    }
-
-    public WebElement getPublishButton() {
-        return driver.findElement(publishButton);
     }
 }

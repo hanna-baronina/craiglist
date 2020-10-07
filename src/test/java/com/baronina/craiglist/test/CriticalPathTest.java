@@ -18,8 +18,8 @@ import java.util.concurrent.TimeUnit;
  * End-to-End tests for the most critical business scenarios.
  */
 public class CriticalPathTest {
-    private static final String EMAIL = "";
-    private static final String PASSWORD = "";
+    private static final String EMAIL = "tvetest2@gmail.com";
+    private static final String PASSWORD = "Polymir9!";
 
     private WebDriver driver;
 
@@ -91,12 +91,20 @@ public class CriticalPathTest {
     @Test
     public void createPost() {
         MainPage mainPage = new MainPage(driver);
+        mainPage.clickMyAccountLink();
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.performLogin(EMAIL, PASSWORD);
+        AccountPage accountPage = new AccountPage(driver);
+        accountPage.clickLinkToMainPage();
         mainPage.clickCreateAPostingLink();
-        PostParametersPage postParametersPage = new PostParametersPage(driver);
-        postParametersPage.selectLocation();
-        postParametersPage.selectCity();
-        postParametersPage.selectType();
-        postParametersPage.selectCategory();
+        PostLocationPage postLocationPage = new PostLocationPage(driver);
+        postLocationPage.selectLocation();
+        PostCityPage postCityPage = new PostCityPage(driver);
+        postCityPage.selectCity();
+        PostTypePage postTypePage = new PostTypePage(driver);
+        postTypePage.selectType();
+        PostCategoryPage postCategoryPage = new PostCategoryPage(driver);
+        postCategoryPage.selectCategory();
 
         CreatePostPage createPostPage = new CreatePostPage(driver);
         createPostPage.enterPostingTitle("Book selling");
@@ -106,13 +114,19 @@ public class CriticalPathTest {
                 "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, " +
                 "when an unknown printer took a galley of type and scrambled it to make a type specimen book. " +
                 "" + "It has survived not only five centuries, but also the leap into electronic typesetting");
-        createPostPage.enterEmail("test@gmail.com");
         createPostPage.clickContinueButton();
         createPostPage.clickConfirmButton();
         createPostPage.clickDoneWithImagesButton();
+        PostPublishPage publishPostPage = new PostPublishPage(driver);
 
         WebDriverWait webDriverWait = new WebDriverWait(driver, 5);
-        webDriverWait.until(ExpectedConditions.textToBePresentInElement(createPostPage.getPublishButton(), "publish"));
+        webDriverWait.until(ExpectedConditions.textToBePresentInElement(publishPostPage.getPublishButton(), "publish"));
+
+        publishPostPage.clickPublishButton();
+
+        PostingSuccessPage postingSuccessPage = new PostingSuccessPage(driver);
+        String actualHeader = postingSuccessPage.getSuccessPostingHeader();
+        Assert.assertEquals("Thanks for posting! We really appreciate it!", actualHeader);
     }
 
     @After

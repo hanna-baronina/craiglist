@@ -29,4 +29,10 @@ public class LoginPage {
     public String getPageTitle() {
         return driver.getTitle();
     }
+
+    public void performLogin(String email, String password){
+        enterEmail(email);
+        enterPassword(password);
+        clickLoginButton();
+    }
 }
